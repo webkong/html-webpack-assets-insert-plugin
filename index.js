@@ -9,6 +9,7 @@ let HtmlWebpackAssetsInsertPlugin = function (options) {
   this.jsPath = jsPath || [];
   this.cssPrepend = cssPrepend;
   this.cssPath = cssPath || [];
+  console.log(this.jsPath, this.jsPrepend, this.cssPath, this.cssPrepend)
 };
 
 HtmlWebpackAssetsInsertPlugin.prototype.injectAssets = function (
