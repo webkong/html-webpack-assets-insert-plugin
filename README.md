@@ -72,5 +72,8 @@ The order is important - the plugin must come **after** HtmlWebpackPlugin.
 
 ## release
 
+v1.0.1
+- initial release
+
 v0.0.1
 - initial release
