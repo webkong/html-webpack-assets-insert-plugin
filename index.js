@@ -1,32 +1,42 @@
 let HtmlWebpackAssetsInsertPlugin = function (options) {
   options = options || {};
   this.options = options;
+  const {
+    js: { prepend: jsPrepend, path: jsPath } = { prepend: true, path: [] },
+    css: { prepend: cssPrepend, path: cssPath } = { prepend: false, path: [] },
+  } = options;
+  this.jsPrepend = jsPrepend || true;
+  this.jsPath = jsPath || [];
+  this.cssPrepend = cssPrepend || false;
+  this.cssPath = cssPath || [];
 };
 
 HtmlWebpackAssetsInsertPlugin.prototype.injectAssets = function (
   htmlData,
   callback
 ) {
-  if (this.options.js) {
-    let path = this.options.js.path;
-    for (let i = path.length - 1; i >= 0; i--) {
-      if (this.options.js.prepend) {
-        htmlData.assets.js.unshift(path[i]);
-      } else {
-        htmlData.assets.js.push(path[i]);
+  if (this.jsPath.length > 0) {
+    if (this.jsPrepend) {
+        
+      for (let i = this.jsPath.length - 1; i >= 0; i--) {
+        htmlData.assets.js.unshift(this.jsPath[i]);
+      }
+    } else {
+      for (let i = 0; i < this.jsPath.length; i++) {
+        htmlData.assets.js.push(this.jsPath[i]);
       }
     }
   }
-  if (this.options.css) {
-    let path = this.options.css.path;
-    for (let i = path.length - 1; i >= 0; i--) {
-      if (this.options.css.prepend) {
-        htmlData.assets.css.unshift(path[i]);
+  if (this.cssPath.length > 0) {
+      if (this.cssPrepend) {
+        for (let i = this.cssPath.length - 1; i >= 0; i--) {
+            htmlData.assets.css.unshift(this.cssPath[i]);
+        }
       } else {
-        htmlData.assets.css.push(path[i]);
-      }
+        for (let i = 0; i <this.cssPath.length; i++) {
+            htmlData.assets.css.push(this.cssPath[i]);
+        }
     }
-  }
   callback(null, htmlData);
 };
 
