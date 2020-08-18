@@ -1,6 +1,6 @@
 {
   "name": "html-webpack-assets-insert-plugin",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Enhances html-webpack-plugin functionality with script and style elements insert to html file.",
   "main": "index.js",
   "typings": "./typing.d.ts",
@@ -31,14 +31,14 @@
   "homepage": "https://github.com/webkong/html-webpack-assets-insert-plugin",
   "dependencies": {},
   "devDependencies": {
-    "html-webpack-plugin": "^4.3.0",
-    "webpack": "^4.44.1"
+    "html-webpack-plugin": "^4.0.0",
+    "webpack": "^4.0.0"
   },
   "peerDependencies": {
-    "webpack": "^4.44.1",
-    "html-webpack-plugin": "^4.3.0"
+    "webpack": "^4.0.0",
+    "html-webpack-plugin": "^4.0.0"
   },
   "engines": {
-    "node": ">=6.11.5"
+    "node": ">=8.0.0"
   }
 }

@@ -2,12 +2,12 @@ let HtmlWebpackAssetsInsertPlugin = function (options) {
   options = options || {};
   this.options = options;
   const {
-    js: { prepend: jsPrepend, path: jsPath } = { prepend: true, path: [] },
-    css: { prepend: cssPrepend, path: cssPath } = { prepend: false, path: [] },
+    js: { prepend : jsPrepend = true, path: jsPath } = { prepend: true, path: [] },
+    css: { prepend: cssPrepend = false, path: cssPath } = { prepend: false, path: [] },
   } = options;
-  this.jsPrepend = jsPrepend || true;
+  this.jsPrepend = jsPrepend;
   this.jsPath = jsPath || [];
-  this.cssPrepend = cssPrepend || false;
+  this.cssPrepend = cssPrepend;
   this.cssPath = cssPath || [];
 };
 
@@ -17,7 +17,6 @@ HtmlWebpackAssetsInsertPlugin.prototype.injectAssets = function (
 ) {
   if (this.jsPath.length > 0) {
     if (this.jsPrepend) {
-        
       for (let i = this.jsPath.length - 1; i >= 0; i--) {
         htmlData.assets.js.unshift(this.jsPath[i]);
       }
@@ -28,18 +27,20 @@ HtmlWebpackAssetsInsertPlugin.prototype.injectAssets = function (
     }
   }
   if (this.cssPath.length > 0) {
-      if (this.cssPrepend) {
-        for (let i = this.cssPath.length - 1; i >= 0; i--) {
-            htmlData.assets.css.unshift(this.cssPath[i]);
-        }
-      } else {
-        for (let i = 0; i <this.cssPath.length; i++) {
-            htmlData.assets.css.push(this.cssPath[i]);
-        }
+    if (this.cssPrepend) {
+      for (let i = this.cssPath.length - 1; i >= 0; i--) {
+        htmlData.assets.css.unshift(this.cssPath[i]);
+      }
+    } else {
+      for (let i = 0; i < this.cssPath.length; i++) {
+        htmlData.assets.css.push(this.cssPath[i]);
+      }
     }
-  callback(null, htmlData);
+    if (callback) {
+      callback(null, htmlData);
+    }
+  }
 };
-
 HtmlWebpackAssetsInsertPlugin.prototype.apply = function (compiler) {
   console.log("Start insert assets...");
   if (compiler.hooks) {
@@ -49,21 +50,19 @@ HtmlWebpackAssetsInsertPlugin.prototype.apply = function (compiler) {
       (compilation) => {
         if (compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing) {
           // HtmlWebPackPlugin 3.x
-          compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing.tapAsync(
+          compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing.tap(
             "HtmlWebpackAssetsInsertPlugin",
-            (htmlData, callback) => {
-              this.injectAssets(htmlData, callback);
+            (htmlData) => {
+              this.injectAssets(htmlData);
             }
           );
         } else {
           // HtmlWebPackPlugin 4.x
           const HtmlWebpackPlugin = require("html-webpack-plugin");
-          HtmlWebpackPlugin.getHooks(
-            compilation
-          ).beforeAssetTagGeneration.tapAsync(
+          HtmlWebpackPlugin.getHooks(compilation).beforeAssetTagGeneration.tap(
             "HtmlWebpackAssetsInsertPlugin",
-            (htmlData, callback) => {
-              this.injectAssets(htmlData, callback);
+            (htmlData) => {
+              this.injectAssets(htmlData);
             }
           );
         }
