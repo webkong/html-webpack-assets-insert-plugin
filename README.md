@@ -1,6 +1,6 @@
 # Assets Extension for HTML Webpack Plugin
 
-[![npm version](https://badge.fury.io/js/html-webpack-assets-insert-plugin.svg)](http://badge.fury.io/js/html-webpack-assets-insert-plugin) [![Dependency Status](https://david-dm.org/web/html-webpack-assets-insert-plugin.svg)](https://david-dm.org/web/html-webpack-assets-insert-plugin) [![Build status](https://travis-ci.org/web/html-webpack-assets-insert-plugin.svg)](https://travis-ci.org/web/html-webpack-assets-insert-plugin) [![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square)](https://github.com/Flet/semistandard)
+[![npm version](https://badge.fury.io/js/html-webpack-assets-insert-plugin.svg)](http://badge.fury.io/js/html-webpack-assets-insert-plugin) [![Build status](https://travis-ci.org/webkong/html-webpack-assets-insert-plugin.svg?branch=master)](https://travis-ci.org/webkong/html-webpack-assets-insert-plugin.svg?branch=master)
 
 [![NPM](https://nodei.co/npm/html-webpack-assets-insert-plugin.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/html-webpack-assets-insert-plugin/)
 
