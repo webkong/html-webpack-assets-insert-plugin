@@ -22,7 +22,7 @@ Install the plugin with npm:
 ```shell
 $ npm install html-webpack-assets-insert-plugin -D
 # or
-$ yarn install 
+$ yarn install html-webpack-assets-insert-plugin -D
 ```
 
 Not that you will need v3.x or v4.x of [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin)
@@ -51,24 +51,45 @@ plugins: [
   }),
 ];
 ```
+
+The effect of the compiled:
+
+```html
+<head>
+  ....
+
+  <link href="http://testcss.com/test.css" rel="stylesheet" />
+</head>
+
+<body>
+  ...
+  <!-- add by plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-router"></script>
+  <!-- add by nuxt -->
+  <script src="/_nuxt/runtime.9458cd8.js"></script>
+  <script src="/_nuxt/commons/app.0872ce0.js"></script>
+  <script src="/_nuxt/vendors~app.7b9299e.js"></script>
+  <script src="/_nuxt/app.28d1ccd.js"></script>
+</body>
+```
+
 In the vue-cli configuration file:
 
 ```javascript
 configureWebpack: (config) => {
   config.plugins.push(
-      new HtmlWebpackAssetsInsertPlugin({
-        js: {
-          prepend: true,
-          path: [
-            '',
-          ]
-        },
-        css:{
-          path:[]
-        }
-      })
-    )
-}
+    new HtmlWebpackAssetsInsertPlugin({
+      js: {
+        prepend: true,
+        path: [""],
+      },
+      css: {
+        path: [],
+      },
+    })
+  );
+};
 ```
 
 In the nuxt.js configuration file:
@@ -123,6 +144,8 @@ The order is important - the plugin must come **after** HtmlWebpackPlugin.
 | path    | Array<string> | Insert link tags according to array index.              |
 
 ## release
+v1.0.4
+- modify readme
 
 v1.0.1
 

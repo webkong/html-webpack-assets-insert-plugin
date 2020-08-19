@@ -1,6 +1,6 @@
 {
   "name": "html-webpack-assets-insert-plugin",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Enhances html-webpack-plugin functionality with script and style elements insert to html file.",
   "main": "index.js",
   "typings": "./typing.d.ts",
