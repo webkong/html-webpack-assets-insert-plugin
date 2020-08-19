@@ -16,14 +16,16 @@ The raw [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin) i
 
 ## Installation
 
-You must be running webpack (3.x, 4.x) on node 6+.
+You must be running webpack (3.x, 4.x) on node 8+.
 Install the plugin with npm:
 
 ```shell
 $ npm install html-webpack-assets-insert-plugin -D
+# or
+$ yarn install 
 ```
 
-Not that you will need v3.0.6+ or v4.x of [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin)
+Not that you will need v3.x or v4.x of [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin)
 
 You may see an `UNMET PEER DEPENDENCY` warnings for webpack and various plugins.
 
@@ -37,14 +39,64 @@ plugins: [
   new HtmlWebpackAssetsInsertPlugin({
     js: {
       prepend: true,
-      path: [""],
+      path: [
+        "https://cdn.jsdelivr.net/npm/vue",
+        "https://cdn.jsdelivr.net/npm/vue-router",
+      ],
     },
     css: {
       prepend: false,
-      path: [""],
+      path: ["http://testcss.com/test.css"],
     },
   }),
 ];
+```
+In the vue-cli configuration file:
+
+```javascript
+configureWebpack: (config) => {
+  config.plugins.push(
+      new HtmlWebpackAssetsInsertPlugin({
+        js: {
+          prepend: true,
+          path: [
+            '',
+          ]
+        },
+        css:{
+          path:[]
+        }
+      })
+    )
+}
+```
+
+In the nuxt.js configuration file:
+
+```javascript
+build: {
+    extend (config, { isClient }) {
+      if (isClient) {
+        config.plugins.push(new HtmlWebpackAssetsInsertPlugin({
+          js: {
+            prepend: true,
+            path: [
+              '',
+              ''
+            ]
+          },
+          css: {
+            prepend: false
+          }
+        }))
+        // externals config
+        // config.externals = {
+        //   vue: 'Vue',
+        //   axios: 'axios',
+        // }
+      }
+    }
+  }
 ```
 
 The order is important - the plugin must come **after** HtmlWebpackPlugin.
@@ -58,22 +110,24 @@ The order is important - the plugin must come **after** HtmlWebpackPlugin.
 
 ### Options(js)
 
-| Options | Type          | Other |
-| ------- | ------------- | ----- |
-| prepend | boolean       |       |
-| path    | Array<string> |       |
+| Options | Type          | Other                                                    |
+| ------- | ------------- | -------------------------------------------------------- |
+| prepend | boolean       | Set the script tags insertion position. Default is true. |
+| path    | Array<string> | Insert script tags according to array index.             |
 
 ### Options(css)
 
-| Options | Type          | Other |
-| ------- | ------------- | ----- |
-| prepend | boolean       |       |
-| path    | Array<string> |       |
+| Options | Type          | Other                                                   |
+| ------- | ------------- | ------------------------------------------------------- |
+| prepend | boolean       | Set the link tags insertion position. Default is false. |
+| path    | Array<string> | Insert link tags according to array index.              |
 
 ## release
 
 v1.0.1
+
 - initial release
 
 v0.0.1
+
 - initial
