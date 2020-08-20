@@ -9,7 +9,6 @@ let HtmlWebpackAssetsInsertPlugin = function (options) {
   this.jsPath = jsPath || [];
   this.cssPrepend = cssPrepend;
   this.cssPath = cssPath || [];
-  console.log(this.jsPath, this.jsPrepend, this.cssPath, this.cssPrepend)
 };
 
 HtmlWebpackAssetsInsertPlugin.prototype.injectAssets = function (
@@ -43,7 +42,6 @@ HtmlWebpackAssetsInsertPlugin.prototype.injectAssets = function (
   }
 };
 HtmlWebpackAssetsInsertPlugin.prototype.apply = function (compiler) {
-  console.log("Start insert assets...");
   if (compiler.hooks) {
     // webpack 4 support
     compiler.hooks.compilation.tap(
@@ -70,7 +68,6 @@ HtmlWebpackAssetsInsertPlugin.prototype.apply = function (compiler) {
       }
     );
   } else {
-    console.log(3);
     // webpack 3 support
     compiler.plugin("compilation", (compilation) => {
       compilation.plugin(
